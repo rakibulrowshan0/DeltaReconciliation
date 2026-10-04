@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DELTA RECONCILIATION — From Inherited Insecurity to Collective Wellbeing</title>
+<meta name="description" content="An interactive cinematic research experience about Bangladesh, historical insecurity, education, economic independence, AI and collective wellbeing.">
+<style>
+:root{
+  --bg:#07110f; --bg2:#0b1714; --ink:#edf3ed; --muted:#aab8af;
+  --line:rgba(237,243,237,.14); --gold:#d6b36a; --green:#7fae8b;
+  --water:#73a8b4; --red:#b87567; --panel:rgba(15,28,24,.82);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+button,a{font:inherit}
+a{color:inherit;text-decoration:none}
+button{color:inherit}
+#grain{position:fixed;inset:0;pointer-events:none;opacity:.07;z-index:20;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+.nav{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);background:rgba(7,17,15,.62)}
+.brand{letter-spacing:.18em;font-size:.75rem;font-weight:700}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:.82rem}.navlinks a:hover{color:var(--ink)}
+.hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:110px 6vw 70px;background:
+radial-gradient(circle at 50% 70%,rgba(115,168,180,.17),transparent 34%),
+radial-gradient(circle at 25% 20%,rgba(127,174,139,.10),transparent 30%),
+linear-gradient(180deg,#06100e 0%,#0a1714 65%,#07110f 100%)}
+.river{position:absolute;inset:auto -10% 0;height:58%;opacity:.72}
+.river svg{width:100%;height:100%}
+.hero-content{max-width:1080px;text-align:center;position:relative;z-index:2}
+.kicker{font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(3.2rem,8vw,8rem);line-height:.92;letter-spacing:-.045em;margin:0}
+.hero h1 span{display:block;color:var(--water)}
+.lede{max-width:760px;margin:32px auto;color:#c8d2cc;font-size:clamp(1rem,2vw,1.28rem)}
+.cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.04);padding:12px 18px;border-radius:999px;cursor:pointer;transition:.25s}
+.btn.primary{background:var(--gold);color:#12100b;border-color:var(--gold)}
+.btn:hover{transform:translateY(-2px);border-color:rgba(214,179,106,.7)}
+.scrollhint{margin-top:70px;color:var(--muted);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+section{padding:110px 6vw;position:relative}
+.section-inner{max-width:1200px;margin:auto}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+h2{font:400 clamp(2.1rem,5vw,4.6rem)/1 Georgia,serif;letter-spacing:-.035em;margin:0 0 24px}
+h3{font-size:1.15rem;margin:0 0 8px}
+.intro{max-width:760px;color:var(--muted);font-size:1.08rem}
+.statement{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:45px 0;margin-top:48px;font:400 clamp(1.6rem,3.5vw,3.2rem)/1.2 Georgia,serif}
+.statement em{color:var(--gold);font-style:normal}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:45px}
+.card{background:var(--panel);border:1px solid var(--line);padding:25px;border-radius:18px;min-height:180px;transition:.3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(127,174,139,.5)}
+.card p{color:var(--muted);margin:0;font-size:.92rem}
+.num{font:400 2rem Georgia,serif;color:var(--gold);margin-bottom:15px}
+#delta{background:linear-gradient(180deg,#07110f,#0b1916)}
+.mapbox{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#081713;margin-top:42px}
+.mapbox svg{display:block;width:100%;height:auto}
+.maplabel{fill:#dfe9e2;font-size:13px;letter-spacing:.08em}
+.riverline{fill:none;stroke:var(--water);stroke-width:3;stroke-linecap:round;opacity:.78}
+.node{cursor:pointer}
+.node circle{fill:#d6b36a;stroke:#0b1714;stroke-width:4}
+.node text{fill:#dfe9e2;font-size:12px}
+#story{background:#0b1714}
+.story-controls{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0}
+.story-btn{border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 14px;cursor:pointer;color:var(--muted)}
+.story-btn.active{background:var(--gold);color:#14110b;border-color:var(--gold)}
+.story-stage{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}
+.story-main,.story-side{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.025);padding:32px}
+.story-main{min-height:360px}
+.story-title{font:400 2.4rem Georgia,serif;margin-bottom:12px}
+.story-body{color:var(--muted);max-width:680px}
+.chain{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chain span{border:1px solid var(--line);padding:7px 10px;border-radius:999px;color:#d4ded7;font-size:.82rem}
+.side-stat{padding:16px 0;border-bottom:1px solid var(--line)}
+.side-stat:last-child{border:0}
+.side-stat b{display:block;font-size:1.2rem;color:var(--gold)}
+.side-stat span{color:var(--muted);font-size:.85rem}
+#framework{background:#07110f}
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:42px}
+.loop-item{padding:24px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025);position:relative}
+.loop-item:after{content:"→";position:absolute;right:-10px;top:50%;color:var(--gold);font-size:1.2rem}
+.loop-item:last-child:after{display:none}
+.loop-item strong{display:block;font:400 1.35rem Georgia,serif;margin-bottom:8px}
+.loop-item small{color:var(--muted)}
+#layers{background:linear-gradient(180deg,#07110f,#0a1613)}
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.layer{padding:22px;border:1px solid var(--line);border-radius:16px;cursor:pointer;background:rgba(255,255,255,.025)}
+.layer.active{border-color:var(--gold);background:rgba(214,179,106,.07)}
+.layer .tag{color:var(--gold);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase}
+.layer p{color:var(--muted);font-size:.88rem;margin-bottom:0}
+#layerDetail{margin-top:18px;border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--panel);min-height:130px}
+.ai{background:#0a1513}
+.ai-box{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:35px}
+.ai-card{padding:30px;border-radius:20px;border:1px solid var(--line)}
+.ai-card.good{border-color:rgba(127,174,139,.4)}.ai-card.warn{border-color:rgba(184,117,103,.45)}
+.ai-card h3{font:400 1.6rem Georgia,serif}
+.ai-card p{color:var(--muted)}
+footer{padding:80px 6vw;border-top:1px solid var(--line);background:#050c0a}
+.footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.footer-title{font:400 2rem Georgia,serif}
+footer p{color:var(--muted);max-width:620px}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:30;width:0}
+@media(max-width:800px){
+ .navlinks{display:none}.grid,.layers{grid-template-columns:1fr}.story-stage,.ai-box{grid-template-columns:1fr}.loop{grid-template-columns:1fr 1fr}.loop-item:after{display:none}
+ section{padding:80px 5vw}.hero{padding-left:5vw;padding-right:5vw}.story-main{min-height:300px}
+}
+@media(max-width:520px){.loop{grid-template-columns:1fr}.hero h1{font-size:3.4rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="grain"></div><div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <a class="brand" href="#top">DELTA / RECONCILIATION</a>
+  <div class="navlinks">
+    <a href="#thesis">THESIS</a><a href="#delta">DELTA</a><a href="#story">SYSTEM</a><a href="#layers">LAYERS</a><a href="#ai">AI</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="river" aria-hidden="true">
+    <svg viewBox="0 0 1200 620" preserveAspectRatio="none">
+      <path d="M80 560 C180 450 160 350 330 330 S560 390 590 260 S790 80 940 160 S1040 330 1180 70" class="riverline"/>
+      <path d="M120 610 C250 480 260 430 410 400 S610 440 690 300 S820 180 1040 250" class="riverline" opacity=".35"/>
+      <path d="M350 620 C420 510 500 500 540 430 S650 310 770 300" class="riverline" opacity=".3"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="kicker">A living research experience · Bangladesh · Bengal Delta · Bay of Bengal</div>
+    <h1>FROM SURVIVAL<br><span>TO WELLBEING</span></h1>
+    <p class="lede">How can a civilization that has inherited ecological vulnerability, displacement, poverty and historical insecurity transform survival into collective capability, dignity and freedom?</p>
+    <div class="cta"><a class="btn primary" href="#thesis">Enter the research</a><a class="btn" href="#story">Explore the system</a></div>
+    <div class="scrollhint">Scroll to enter the delta</div>
+  </div>
+</header>
+
+<section id="thesis">
+<div class="section-inner">
+  <div class="eyebrow">01 · The proposition</div>
+  <h2>History does not disappear.<br>It travels.</h2>
+  <p class="intro">Bangladesh's present cannot be explained by a lack of intelligence, creativity or dignity. Historical ecological vulnerability, colonial rule, Partition, displacement, political struggle, unequal access to resources and changing global economic relationships can leave forms of insecurity that travel across generations.</p>
+  <div class="statement">The question is not simply <em>“How do we become richer?”</em><br><br>It is <em>“How do we expand the meaningful choices available to every generation?”</em></div>
+  <div class="grid">
+    <article class="card"><div class="num">01</div><h3>Insecurity</h3><p>Economic, ecological and institutional uncertainty can enter family expectations, educational choices and intimate relationships.</p></article>
+    <article class="card"><div class="num">02</div><h3>Options</h3><p>Poverty can be understood as a reduction in viable choices: where to live, what to study, what work to accept and whether one can safely leave.</p></article>
+    <article class="card"><div class="num">03</div><h3>Capability</h3><p>Education, ownership, health, time, institutions and technology can expand a person's ability to act rather than merely survive.</p></article>
+  </div>
+</div>
+</section>
+
+<section id="delta">
+<div class="section-inner">
+  <div class="eyebrow">02 · The living geography</div>
+  <h2>The delta is not a backdrop.</h2>
+  <p class="intro">The Bengal Delta connects ecology, settlement, agriculture, migration, displacement and political economy. Nature creates risks and opportunities; institutions and markets distribute them.</p>
+  <div class="mapbox">
+    <svg viewBox="0 0 1100 500" role="img" aria-label="Schematic conceptual map of the Bengal Delta">
+      <rect width="1100" height="500" fill="#07110f"/>
+      <path d="M40 80 C220 150 280 210 430 220 S650 180 760 245 S900 330 1060 410" class="riverline"/>
+      <path d="M180 30 C250 120 320 180 470 260 S690 300 840 400" class="riverline" opacity=".55"/>
+      <path d="M420 20 C470 100 500 190 560 260 S650 390 730 480" class="riverline" opacity=".4"/>
+      <path d="M560 250 C480 320 380 350 260 420" class="riverline" opacity=".3"/>
+      <text x="70" y="65" class="maplabel">HIMALAYA / UPSTREAM SYSTEMS</text>
+      <text x="800" y="455" class="maplabel">BAY OF BENGAL</text>
+      <g class="node" data-place="Rivers"><circle cx="470" cy="220" r="8"/><text x="485" y="215">RIVERS</text></g>
+      <g class="node" data-place="Land"><circle cx="610" cy="270" r="8"/><text x="625" y="265">LAND</text></g>
+      <g class="node" data-place="Livelihood"><circle cx="710" cy="325" r="8"/><text x="725" y="320">LIVELIHOOD</text></g>
+      <g class="node" data-place="Displacement"><circle cx="820" cy="370" r="8"/><text x="835" y="365">DISPLACEMENT</text></g>
+      <g class="node" data-place="Mobility"><circle cx="900" cy="405" r="8"/><text x="915" y="400">MOBILITY</text></g>
+    </svg>
+  </div>
+  <div id="placeNote" class="statement" style="font-size:1.35rem;margin-top:18px">Select a node. The geography becomes a chain of human consequences.</div>
+</div>
+</section>
+
+<section id="story">
+<div class="section-inner">
+  <div class="eyebrow">03 · Explore one system</div>
+  <h2>One pressure can become another.</h2>
+  <p class="intro">Move through the chain. The purpose is not to claim a single cause, but to reveal relationships that conventional categories often separate.</p>
+  <div class="story-controls" role="tablist">
+    <button class="story-btn active" data-story="land">Land</button>
+    <button class="story-btn" data-story="poverty">Poverty</button>
+    <button class="story-btn" data-story="family">Family</button>
+    <button class="story-btn" data-story="migration">Migration</button>
+    <button class="story-btn" data-story="time">Time</button>
+  </div>
+  <div class="story-stage">
+    <article class="story-main"><div class="story-title" id="storyTitle"></div><p class="story-body" id="storyBody"></p><div class="chain" id="storyChain"></div></article>
+    <aside class="story-side">
+      <div class="side-stat"><b id="stat1"></b><span id="stat1t"></span></div>
+      <div class="side-stat"><b id="stat2"></b><span id="stat2t"></span></div>
+      <div class="side-stat"><b id="stat3"></b><span id="stat3t"></span></div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section id="framework">
+<div class="section-inner">
+  <div class="eyebrow">04 · The transformation loop</div>
+  <h2>From inherited insecurity<br>to intergenerational freedom.</h2>
+  <p class="intro">The goal is not to eliminate struggle. It is to prevent avoidable suffering from becoming destiny.</p>
+  <div class="loop">
+    <div class="loop-item"><strong>Survival</strong><small>Respond to crisis and protect life.</small></div>
+    <div class="loop-item"><strong>Security</strong><small>Build health, income, housing and institutional trust.</small></div>
+    <div class="loop-item"><strong>Capability</strong><small>Expand education, skills, ownership and time.</small></div>
+    <div class="loop-item"><strong>Agency</strong><small>Increase meaningful freedom to choose and create.</small></div>
+    <div class="loop-item"><strong>Creativity</strong><small>Turn capability into culture, enterprise and knowledge.</small></div>
+    <div class="loop-item"><strong>Productivity</strong><small>Create value without reproducing extraction.</small></div>
+    <div class="loop-item"><strong>Wellbeing</strong><small>Strengthen people, communities and ecosystems.</small></div>
+    <div class="loop-item"><strong>Next generation</strong><small>Inherit more choices than the previous generation.</small></div>
+  </div>
+</div>
+</section>
+
+<section id="layers">
+<div class="section-inner">
+  <div class="eyebrow">05 · Complete system</div>
+  <h2>Nothing exists alone.</h2>
+  <p class="intro">The research becomes a civilizational map when the missing layers are brought together: land, ownership, time, care, gender, health, food, energy, institutions, trust, justice, migration, culture, ecology and technology.</p>
+  <div class="layers" id="layersGrid"></div>
+  <div id="layerDetail"><strong>Choose a layer.</strong><br><span style="color:var(--muted)">Each layer changes the meaning of the others.</span></div>
+</div>
+</section>
+
+<section id="ai" class="ai">
+<div class="section-inner">
+  <div class="eyebrow">06 · AI and reality</div>
+  <h2>AI can reconnect reality.<br>It can also compress it.</h2>
+  <p class="intro">A civilizational AI should not become a machine that declares one final truth about Bangladesh. It should help people discover evidence, contradictions, missing voices and relationships.</p>
+  <div class="ai-box">
+    <article class="ai-card good"><h3>Decompress reality</h3><p>Connect archives, oral histories, maps, films, economic records, environmental data and competing interpretations. Preserve provenance, uncertainty and disagreement.</p></article>
+    <article class="ai-card warn"><h3>Compress reality</h3><p>Reduce complex people and histories into one narrative, one metric, one algorithmic recommendation or one supposedly universal truth.</p></article>
+  </div>
+  <div class="statement">The purpose of AI is not to replace human judgment.<br><em>It is to expand human capacity to understand, question and choose.</em></div>
+</div>
+</section>
+
+<section>
+<div class="section-inner">
+  <div class="eyebrow">07 · The question</div>
+  <h2>What should a child inherit?</h2>
+  <p class="intro">Not only the memory of everything previous generations survived, but the freedom to choose a future previous generations could not.</p>
+  <div class="statement">A generation should not have to reproduce the suffering of the previous generation simply to prove that it has survived.</div>
+  <div class="grid">
+    <article class="card"><h3>More knowledge</h3><p>Historical literacy, scientific thinking, financial capability and critical reasoning.</p></article>
+    <article class="card"><h3>More choices</h3><p>Education, productive work, ownership, mobility, safety and time.</p></article>
+    <article class="card"><h3>More agency</h3><p>The ability to participate in family, community, institutions and the future of the civilization.</p></article>
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="footer-inner">
+  <div><div class="footer-title">DELTA RECONCILIATION</div><p>A living research architecture for Bangladesh and the Bengal Delta.</p></div>
+  <div><p><strong>Everything flows.</strong><br>Land. People. Memory. Capital. Power. Knowledge. Time.<br><br>The task is not to stop the flow. It is to increase the civilization's capacity to shape its direction.</p></div>
+</div>
+</footer>
+
+<script>
+(() => {
+  const root=document.body;
+  const progress=document.getElementById('progress');
+  const stories={
+    land:{title:'Land → security → displacement',body:'Land is simultaneously a productive asset, a home, an inheritance and a source of identity. When land is lost through erosion, acquisition, disaster or unequal ownership, the consequence can be economic, social and psychological at once.',chain:['land','ownership','livelihood','displacement','migration','memory'],stats:['Asset','Land can create long-term security.','Risk','Loss can remove multiple forms of security at once.','Research','Track ownership, erosion and mobility together.']},
+    poverty:{title:'Poverty → fewer viable choices',body:'Poverty is more than a low income. It can mean less time, fewer assets, weaker bargaining power and less capacity to experiment. Economic stability therefore matters because it expands the set of decisions a person can realistically make.',chain:['income','assets','time','capability','choice','agency'],stats:['Income','Pays for immediate survival.','Assets','Create resilience beyond monthly income.','Agency','Turns resources into meaningful choices.']},
+    family:{title:'History → insecurity → family pressure',body:'A family can absorb pressures generated by the wider economy. A demand for a secure job, migration or financial success may carry memories of previous insecurity. Context can explain pressure without excusing harmful behaviour.',chain:['history','insecurity','expectation','conflict','understanding','reconciliation'],stats:['Context','Personal conflict can have structural roots.','Boundary','Understanding is not the same as surrender.','Goal','Interdependence without coercion.']},
+    migration:{title:'Migration → remittance + separation',body:'Migration reallocates human capability across space. It can create income, knowledge and networks while also producing separation, care deficits and identity disruption. It should therefore be studied as both economic mobility and social transformation.',chain:['mobility','work','remittance','separation','knowledge','return'],stats:['Mobility','People move in response to opportunity and constraint.','Connection','Digital space can preserve relationships.','Risk','Dependency can move across borders too.']},
+    time:{title:'Time → the hidden economics of freedom',body:'People who spend most of their time surviving have less time for learning, care, creativity, health and participation. Development therefore includes the capacity to reclaim discretionary time from avoidable survival pressure.',chain:['labour','time','rest','learning','creation','agency'],stats:['Resource','Time is finite.','AI','Can reduce some cognitive labour.','Warning','Technology can also intensify work and surveillance.']}
+  };
+  const title=document.getElementById('storyTitle'),body=document.getElementById('storyBody'),chain=document.getElementById('storyChain');
+  function showStory(key){
+    const s=stories[key]; title.textContent=s.title; body.textContent=s.body;
+    chain.innerHTML=s.chain.map(x=>`<span>${x}</span>`).join('');
+    [['stat1','stat1t'],['stat2','stat2t'],['stat3','stat3t']].forEach((ids,i)=>{document.getElementById(ids[0]).textContent=s.stats[i*2];document.getElementById(ids[1]).textContent=s.stats[i*2+1]});
+    document.querySelectorAll('.story-btn').forEach(b=>b.classList.toggle('active',b.dataset.story===key));
+  }
+  document.querySelectorAll('.story-btn').forEach(b=>b.addEventListener('click',()=>showStory(b.dataset.story)));
+  showStory('land');
+
+  const layers=[
+    ['LAND','Who owns, loses and inherits productive space?','Land links ecology, wealth, identity, displacement and intergenerational security.'],
+    ['OWNERSHIP','Income is not the same as productive ownership.','Assets, businesses, intellectual property and technology can determine long-run resilience.'],
+    ['TIME','Freedom requires discretionary time.','Survival pressure can consume the time needed for learning, care, creativity and participation.'],
+    ['CARE','Who sustains the human economy?','Childcare, eldercare, health and household labour are foundational but often invisible in economic measurement.'],
+    ['GENDER','Who has which choices?','Examine structural constraints and socially imposed roles without reducing people to victims.'],
+    ['HEALTH','Capability begins with the body and mind.','Physical and mental wellbeing influence learning, productivity, relationships and resilience.'],
+    ['FOOD & WATER','The delta depends on ecological foundations.','Agriculture, fisheries, salinity, drinking water and nutrition connect ecology directly to political economy.'],
+    ['ENERGY','Modern capability requires energy.','Industry, hospitals, communication and AI all depend on reliable energy systems.'],
+    ['INSTITUTIONS','Individual capability needs functioning systems.','Schools, markets, courts, media, government and civil society convert individual potential into collective capacity.'],
+    ['TRUST','Cooperation has a social infrastructure.','When institutional trust is weak, people may rely more heavily on personal networks and patronage.'],
+    ['JUSTICE','Reconciliation cannot mean forgetting.','Memory, evidence, accountability, repair and prevention are necessary for durable reconciliation.'],
+    ['MIGRATION','Human capability moves.','Migration can create income and networks while also producing separation, care deficits and identity change.'],
+    ['CULTURE','Civilizations remember through expression.','Cinema, music, literature, photography and oral history make historical experience emotionally legible.'],
+    ['ECOLOGY','Nature creates conditions; society distributes risk.','Avoid environmental determinism while taking ecological constraints seriously.'],
+    ['TECHNOLOGY','Connectivity is not the same as sovereignty.','Data, infrastructure, models and intellectual property shape technological dependence and agency.'],
+    ['AI ETHICS','AI must preserve uncertainty and human agency.','A trustworthy civilizational AI should expose evidence and disagreement rather than declare one final truth.']
+  ];
+  const grid=document.getElementById('layersGrid'), detail=document.getElementById('layerDetail');
+  layers.forEach((l,i)=>{
+    const el=document.createElement('button'); el.type='button'; el.className='layer'; el.innerHTML=`<div class="tag">${String(i+1).padStart(2,'0')} · ${l[0]}</div><p>${l[1]}</p>`;
+    el.addEventListener('click',()=>{document.querySelectorAll('.layer').forEach(x=>x.classList.remove('active'));el.classList.add('active');detail.innerHTML=`<strong>${l[0]}</strong><br><span style="color:var(--muted)">${l[2]}</span>`});
+    grid.appendChild(el);
+  });
+
+  const placeNotes={
+    Rivers:'Rivers move sediment, water, people and risk. Their physical movement can become a social and economic process.',
+    Land:'Land is simultaneously territory, asset, home, inheritance and memory.',
+    Livelihood:'Agriculture, fisheries, trade and labour convert ecological conditions into economic life.',
+    Displacement:'When access to land or livelihood is lost, displacement can become a transfer of ownership, memory and agency.',
+    Mobility:'Migration can be a response to constraint and a strategy for opportunity.'
+  };
+  document.querySelectorAll('.node').forEach(n=>n.addEventListener('click',()=>document.getElementById('placeNote').innerHTML=`<em>${n.dataset.place}</em><br>${placeNotes[n.dataset.place]}`));
+
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-innerHeight;
+    progress.style.width=(h>0?(scrollY/h)*100:0)+'%';
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
